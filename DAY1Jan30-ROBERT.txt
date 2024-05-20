@@ -1,6 +1,6 @@
 !@@@CORE SWITCH SA TAAS
 config t
-   hostname COREtaas_
+   hostname COREtaas21
    enable secret pass
    service password-encryption
    no logging console
@@ -15,24 +15,24 @@ config t
       exec-timeout 0 0
    Int Vlan 1
      no shutdown
-	 ip add 10._.1.2 255.255.255.0
+	 ip add 10.21.1.2 255.255.255.0
 	 description MGMTDATA
    Int Vlan 10
      no shutdown
-	 ip add 10._.10.2 255.255.255.0
+	 ip add 10.21.10.2 255.255.255.0
 	 description WIRELESS
    Int Vlan 50
      no shutdown
-	 ip add 10._.50.2 255.255.255.0
+	 ip add 10.21.50.2 255.255.255.0
 	 description IPCCTV
    Int Vlan 100
      no shutdown
-	 ip add 10._.100.2 255.255.255.0
+	 ip add 10.21.100.2 255.255.255.0
 	 description VOICEVLAN
 
 !@@@LeafSwitchONLY
 config t
-   hostname COREbaba_
+   hostname COREbaba21
    enable secret pass
    service password-encryption
    no logging console
@@ -48,53 +48,62 @@ config t
    Int Gi 0/1
      no shutdown
 	  no switchport
-	  ip add 10._._.4 255.255.255.0
+	  ip add 10.21.21.4 255.255.255.0
    Int Vlan 1
      no shutdown
-	 ip add 10._.1.4 255.255.255.0
+	 ip add 10.21.1.4 255.255.255.0
 	 description MGMTDATA
    Int Vlan 10
      no shutdown
-	 ip add 10._.10.4 255.255.255.0
+	 ip add 10.21.10.4 255.255.255.0
 	 description WIRELESS
    Int Vlan 50
      no shutdown
-	 ip add 10._.50.4 255.255.255.0
+	 ip add 10.21.50.4 255.255.255.0
 	 description IPCCTV
    Int Vlan 100
      no shutdown
-	 ip add 10._.100.4 255.255.255.0
+	 ip add 10.21.100.4 255.255.255.0
 	 description VOICEVLAN
 	 
 !DHCP: DYNAMIC HOST CONFIGURATION PROTOCOL
 !@@@LEAF SWITCH
 config t
-ip dhcp Excluded-add 10._.1.1 10._.1.100
-ip dhcp Excluded-add 10._.10.1 10._.10.100
-ip dhcp Excluded-add 10._.50.1 10._.50.100
-ip dhcp Excluded-add 10._.100.1 10._.100.100
+ip dhcp Excluded-add 10.21.1.1 10.21.1.100
+ip dhcp Excluded-add 10.21.10.1 10.21.10.100
+ip dhcp Excluded-add 10.21.50.1 10.21.50.100
+ip dhcp Excluded-add 10.21.100.1 10.21.100.100
 ip dhcp pool MGMTDATA
-   network 10._.1.0 255.255.255.0
-   default-router 10._.1.4
+   network 10.21.1.0 255.255.255.0
+   default-router 10.21.1.4
    domain-name MGMTDATA.COM
-   dns-server 10._.1.10
+   dns-server 10.21.1.10
 ip dhcp pool WIFIDATA
-   network 10._.10.0 255.255.255.0
-   default-router 10._.10.4
+   network 10.21.10.0 255.255.255.0
+   default-router 10.21.10.4
    domain-name WIFIDATA.COM
-   dns-server 10._.1.10
+   dns-server 10.21.1.10
 ip dhcp pool IPCCTV
-   network 10._.50.0 255.255.255.0
-   default-router 10._.50.4
+   network 10.21.50.0 255.255.255.0
+   default-router 10.21.50.4
    domain-name IPCCTV.COM
-   dns-server 10._.1.10
+   dns-server 10.21.1.10
 ip dhcp pool VOICEVLAN
-   network 10._.100.0 255.255.255.0
-   default-router 10._.100.4
+   network 10.21.100.0 255.255.255.0
+   default-router 10.21.100.4
    domain-name VOICEVLAN.COM
-   dns-server 10._.1.10
-   option 150 ip 10._.100.8   
+   dns-server 10.21.1.10
+   option 150 ip 10.21.100.8   
    END
+
+!IP CAMERA RESERVATION: 
+CONFIG T
+   ip dhcp pool CAMERA6
+host 10.21.50.6 255.255.255.0
+client-identifier 001a.0709.c252
+   ip dhcp pool CAMERA8
+host 10.21.50.8 255.255.255.0
+client-identifier  001a.0704.7f64
 
 !!CREATING AND PLACING PORTS INSIDEAVLAN:
 config t
@@ -130,7 +139,7 @@ Int Fa 0/7
 !!cisco unified call manager Express command
 !@@@CUCM-M
 config t
-   hostname CUCM-_
+   hostname CUCM-21
    enable secret pass
    service password-encryption
    no logging console
@@ -145,22 +154,24 @@ config t
       exec-timeout 0 0
    Int Fa 0/0
      no shutdown
-	 ip add 10._.100.8 255.255.255.0 
+	 ip add 10.21.100.8 255.255.255.0 
 	 end
-   
+
+
+
 !!!CUCM ANALOG PHONES CONFIG
 configure terminal
 dial-peer voice 1 pots
-   destination-pattern _00
+   destination-pattern 2100
    port 0/0/0
 dial-peer voice 2 pots
-   destination-pattern _01
+   destination-pattern 2101
    port 0/0/1
 dial-peer voice 3 pots
-   destination-pattern _02
+   destination-pattern 2102
    port 0/0/2
 dial-peer voice 4 pots
-   destination-pattern _03
+   destination-pattern 2103
    port 0/0/3
 end
 
@@ -172,31 +183,31 @@ telephony-service
    no auto-reg-ephone
    max-ephones 5
    max-dn 20
-   ip source-address 10._.100.8 port 2000
+   ip source-address 10.21.100.8 port 2000
    create cnf-files
 ephone-dn 1
-  number _11
+  number 2111
 ephone-dn 2
-  number _22
+  number 2122
 ephone-dn 3
-  number _33
+  number 2133
 ephone-dn 4
-  number _44
+  number 2144
 ephone-dn 5
-  number _55
+  number 2155
 ephone-dn 6
-  number _66
+  number 2166
 ephone-dn 7
-  number _77
+  number 2177
 ephone-dn 8
-  number _88	
+  number 2188	
 Ephone 1
-  Mac-address ____.____.____
+  Mac-address 21212121.21212121.21212121
   type 8945
   button 1:1 2:3 3:2 4:4
   restart
 Ephone 2
-  Mac-address ____.____.____
+  Mac-address 21212121.21212121.21212121
   type 8945
   button 1:5 2:6 3:7 4:8
   restart  
@@ -338,7 +349,7 @@ config t
  ip route 10.72.0.0 255.255.0.0 200.0.0.72
  ip route 10.81.0.0 255.255.0.0 200.0.0.81
  ip route 10.82.0.0 255.255.0.0 200.0.0.82
- ip route 10._.0.0 255.255.0.0 10._._.4
+ ip route 10.21.0.0 255.255.0.0 10.21.21.4
  end
  
 *********************************************
@@ -346,13 +357,13 @@ ROUTING
 @SWITCH/COREBABA
 conf t 
 ip routing
-ip route 0.0.0.0 0.0.0.0 10._._.1
+ip route 0.0.0.0 0.0.0.0 10.21.21.1
 end
 
 @CUCM
 conf t
 ip routing
-ip route 0.0.0.0 0.0.0.0 10._.100.4
+ip route 0.0.0.0 0.0.0.0 10.21.100.4
 end
 
 !How to Static Route windows Server:
@@ -376,7 +387,7 @@ dial-peer voice 69 voip
  no vad
 !
 telephony-service
- moh "flash:/en_bacd_music_on_hold.au"
+ moh "flash:/en21bacd21music21on21hold.au"
 !
 application
  service rivanaa flash:app-b-acd-aa-3.0.0.2.tcl
@@ -384,7 +395,7 @@ application
   param number-of-hunt-grps 2
   param dial-by-extension-option 8
   param handoff-string rivanaa
-  param welcome-prompt flash:en_bacd_welcome.au
+  param welcome-prompt flash:en21bacd21welcome.au
   paramspace english language en
   param call-retry-timer 15
   param service-name rivanqueue
@@ -448,7 +459,7 @@ DEBUG COMMANDS
 =============================================================
 
           
-http://docwiki.cisco.com/wiki/Cisco_IOS_Voice_Troubleshooting_and_Monitoring_--_Tcl_IVR_Troubleshooting
+http://docwiki.cisco.com/wiki/Cisco21IOS21Voice21Troubleshooting21and21Monitoring21--21Tcl21IVR21Troubleshooting
 
 debug voice application ?
 debug voice application error
@@ -475,44 +486,44 @@ conf t
   allow-connections sip to sip
   supplementary-service h450.12
  sip
-   bind control source-interface _____0/0
-   bind media source-interface _____0/0
+   bind control source-interface 21212121210/0
+   bind media source-interface 21212121210/0
    registrar server expires max 600 min 60
 !
  voice register global
   mode cme
-  source-address 192.168._.1 port 5060
+  source-address 192.168.21.1 port 5060
   max-dn 12
   max-pool 12
   authenticate register
   create profile sync
  voice register dn 1
-   number ____
+   number 21212121
    allow watch
-   name _______
+   name 21212121212121
  voice register dn 2
-   number ___
+   number 212121
    allow watch
-   name _______
+   name 21212121212121
           
   voice register pool 1
-    id mac ____.____.____
+    id mac 21212121.21212121.21212121
     number 1 dn 1
     dtmf-relay sip-notify
-    username ____ password ____
+    username 21212121 password 21212121
     codec g711ulaw
 !
   voice register pool 1
-    id mac ____.____.____
+    id mac 21212121.21212121.21212121
     number 1 dn 2
     dtmf-relay sip-notify
-    username ____ password ____
+    username 21212121 password 21212121
     codec g711ulaw
 !
 *******call other countries!!!********
 config t
 !
-dial-peer voice _ voip
+dial-peer voice 21 voip
 destination-pattern k..
 session protocol sipv2
 session target sip-server
