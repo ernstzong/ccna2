@@ -334,9 +334,9 @@ config t
  !!! EDGE route NOT dikit to ClassMate:
   conf t
  ip routing 
-!ip route 10.11.0.0 255.255.0.0 200.0.0.11
+ ip route 10.11.0.0 255.255.0.0 200.0.0.11
  ip route 10.12.0.0 255.255.0.0 200.0.0.12
- ip route 10.21.0.0 255.255.0.0 200.0.0.21
+!ip route 10.21.0.0 255.255.0.0 200.0.0.21
  ip route 10.22.0.0 255.255.0.0 200.0.0.22
  ip route 10.31.0.0 255.255.0.0 200.0.0.31
  ip route 10.32.0.0 255.255.0.0 200.0.0.32
@@ -369,8 +369,8 @@ end
 
 !How to Static Route windows Server:
 cmd
-route  add   10.0.0.0   mask   255.0.0.0    10.m.1.4
-route  add  200.0.0.0   mask  255.255.255.0   10.m.1.4
+route  add   10.0.0.0   mask   255.0.0.0    10.21.1.4
+.
 
 ********************************************
 
