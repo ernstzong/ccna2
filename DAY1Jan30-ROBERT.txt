@@ -380,9 +380,9 @@ route  add   10.0.0.0   mask   255.0.0.0    10.21.1.4
 config t
 dial-peer voice 69 voip
  service rivanaa out-bound
- destination-pattern 1269
- session target ipv4:10.12.100.8
- incoming called-number 1269
+ destination-pattern 2169
+ session target ipv4:10.21.100.8
+ incoming called-number 2169
  dtmf-relay h245-alphanumeric
  codec g711ulaw
  no vad
@@ -405,13 +405,13 @@ application
   param max-time-vm-retry 2
   param voice-mail 1234
   param max-time-call-retry 700
-  param aa-pilot 1269
+  param aa-pilot 2169
  service rivanqueue flash:app-b-acd-3.0.0.2.tcl
   param queue-len 15
-  param aa-hunt1 1200
-  param aa-hunt2 1277
-  param aa-hunt3 1201
-  param aa-hunt4 1255
+  param aa-hunt1 2100
+  param aa-hunt2 2101
+  param aa-hunt3 2177
+  param aa-hunt4 2133
   param queue-manager-debugs 1
   param number-of-hunt-grps 4
 ****************************************************************************
