@@ -53,17 +53,27 @@ config t
 int e0/0
  ip add 10.2.1.101 255.255.255.0
  no shut
+P1: Creating static route on P1 FOR VLAN 200 and vlan 20:
+config t
+ip route 192.168.1.128 255.255.255.224 10.2.1.1 1
+ip route 192.168.1.130 255.255.255.255 10.2.1.2
+do sh ip route static
 p2:
 config t
 int e1/0
  ip add 10.2.1.102 255.255.255.0
  no shut
 
+P2: Create static route for vlan 200 and a longest prefix rule for 192.168.1.129 GATEWAY 10.2.1.1
+config t
+ip route 192.168.1.128 255.255.255.224 10.2.1.2 
+ip route 192.168.1.129 255.255.255.255 10.2.1.1
+do sh ip route static
 Pano mag static Route sa PC:
 cmd
 route  add 10.m.0.0 mask 255.255.0.0 10.m.1.4 -p
 
-How to StaticRoute Cisco/PC/EndDevices:
+How to create Default StaticRoute Cisco/PC/EndDevices:
 p1:
 config T
 ip route 0.0.0.0  0.0.0.0 10.2.1.1
