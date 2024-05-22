@@ -18,6 +18,12 @@ ip dhcp excluded-add 10.2.1.200 10.2.1.254
 ip dhcp pool vlan10
   network 10.2.1.0 255.255.255.0
   default-router 10.2.1.254
+# ipasol d1 port e1/0 sa vlan 200
+conf t
+int e1/0
+  switchport mode access
+  switchport access vlan 200
+  do show vlan brief
 !
 D2:
 CONFIG T
@@ -28,6 +34,12 @@ ip dhcp pool vlan10
   network 10.2.1.0 255.255.255.0
   default-router 10.2.1.254
 !
+# ipasol d2 port e1/0 sa vlan 20
+conf t
+int e1/0
+  switchport mode access
+  switchport access vlan 20
+  do show vlan brief
 A1: lipat vlan from v1 to v10
 config t
 int e0/0
