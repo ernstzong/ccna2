@@ -7,7 +7,8 @@ pip install requests
 #Task1
 enable IOX:
 
-enableLinuxdockersinCSR1000v
+BIGYAN NG ALAK,DRAGO IS cISCO PARA LABASAN enableLinuxdockersinCSR1000v
+
 !!
 config t
 iox
