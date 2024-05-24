@@ -126,7 +126,7 @@ config t
 end
 @taas:
 config t
-spanning-tree vlan 1
+ spanning-tree vlan 1
 end
 
 TASK7: HOW TO BECOME A WORLD-CLASS NETWORK ENGINEER
@@ -135,7 +135,7 @@ Master the 4 super Hereos of Switching
 Qpid: 802.1Q:trunking
 "make switch love each other!"LQ
 Darna: 802.1d: STP
-"slowly protect switches"
+"slowly protect switches with love and mercy"
 WonderWoman: 802.1w: rapidSTP
 "quickly,Brutally protect switches"
 SuperMan: 802.1s: MiSTP
@@ -145,7 +145,7 @@ TASK8: ACCESS PORTS VS TRUNK PORTS:
 Trunk Ports: switch to switch:
 TAAS/BABA:
 config t
-Int Range fa0/10-12
+Int Range fa0/7-12
  shutdown
  no shutdown
  switchport trunk Encap Dot1Q
